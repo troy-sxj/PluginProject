@@ -1,1 +1,1 @@
-include ':app', ':reflect_lib'
+include ':app', ':reflect_lib', ':dynamic'
