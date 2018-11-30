@@ -4,10 +4,19 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.mika.host.dynamic.HookHelper;
+import com.mika.dynamic.HookHelper;
+import com.mika.dynamic.utils.FileUtils;
+
+import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import dalvik.system.DexClassLoader;
+
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
@@ -15,9 +24,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private Button btn1, btn2, btn3;
 
 
+    private String pluginName = "plugin1.apk";
+
     @Override
     protected void attachBaseContext(Context newBase) {
-        HookHelper.attachBaseContext();
+        try {
+//            HookHelper.attachBaseContext();
+            FileUtils.extractAssets(newBase, pluginName);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         super.attachBaseContext(newBase);
     }
 
@@ -25,6 +41,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        loadPluginDex(pluginName);
 
         btn1 = (Button) findViewById(R.id.button);
         btn2 = (Button) findViewById(R.id.button2);
@@ -39,10 +57,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button:
-                jumpTestActivity();
+                loadBean();
+//                jumpTestActivity();
                 break;
             case R.id.button2:
-                jumpTestService();
+                testFile();
                 break;
             case R.id.button3:
                 jumpTestReceiver();
@@ -64,5 +83,38 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     }
 
+    private void testFile(){
+        FileUtils.testStorage(getBaseContext());
+    }
+
+    private DexClassLoader dexClassLoader;
+
+    private void loadPluginDex(String pluginName) {
+        File extraFile = this.getFileStreamPath(pluginName);
+        String dexPath = extraFile.getPath();
+        File fileRelease = this.getDir("dex", 0);
+        dexClassLoader = new DexClassLoader(dexPath, fileRelease.getAbsolutePath(), null, this.getClassLoader());
+    }
+
+    private void loadBean() {
+        try {
+            Class aClass = dexClassLoader.loadClass("jianqiang.com.plugin1.Bean");
+            Object beanObj = aClass.newInstance();
+            Method getName = aClass.getDeclaredMethod("getName");
+            getName.setAccessible(true);
+            String invoke = (String) getName.invoke(beanObj);
+            Log.e(Tag, "loadBean : " + invoke);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }catch (InvocationTargetException e){
+            e.printStackTrace();
+        }
+    }
 }
 
