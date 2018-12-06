@@ -3,19 +3,25 @@ package com.mika.host;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.mika.dynamic.HookHelper;
 import com.mika.dynamic.utils.FileUtils;
 
 import java.io.File;
+import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import dalvik.system.BaseDexClassLoader;
 import dalvik.system.DexClassLoader;
+import invoke.RefInvoke;
 
 
 public class MainActivity extends Activity implements View.OnClickListener {
@@ -30,7 +36,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     protected void attachBaseContext(Context newBase) {
         try {
 //            HookHelper.attachBaseContext();
-            FileUtils.extractAssets(newBase, pluginName);
+
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -44,9 +50,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         loadPluginDex(pluginName);
 
-        btn1 = (Button) findViewById(R.id.button);
-        btn2 = (Button) findViewById(R.id.button2);
-        btn3 = (Button) findViewById(R.id.button3);
+        btn1 = (Button) findViewById(R.id.btnCopyPlugin);
+        btn2 = (Button) findViewById(R.id.btnLoadDex);
+        btn3 = (Button) findViewById(R.id.btnLoadClass);
 
         btn1.setOnClickListener(this);
         btn2.setOnClickListener(this);
@@ -56,15 +62,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.button:
+            case R.id.btnCopyPlugin:
+                FileUtils.extractAssets(getBaseContext(), pluginName);
+                break;
+            case R.id.btnLoadDex:
+                loadPluginDex(pluginName);
+                break;
+            case R.id.btnLoadClass:
                 loadBean();
-//                jumpTestActivity();
-                break;
-            case R.id.button2:
-                testFile();
-                break;
-            case R.id.button3:
-                jumpTestReceiver();
                 break;
         }
     }
@@ -75,8 +80,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     private void jumpTestService() {
-
+        RefInvoke.getFieldObject(BaseDexClassLoader.class, this.getClassLoader(), "pathList");
     }
 
     private void jumpTestReceiver() {
@@ -98,12 +104,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     private void loadBean() {
         try {
-            Class aClass = dexClassLoader.loadClass("jianqiang.com.plugin1.Bean");
+            Class aClass = dexClassLoader.loadClass("com.mika.plugin1.Bean");
             Object beanObj = aClass.newInstance();
             Method getName = aClass.getDeclaredMethod("getName");
             getName.setAccessible(true);
             String invoke = (String) getName.invoke(beanObj);
-            Log.e(Tag, "loadBean : " + invoke);
+            Toast.makeText(this, invoke, Toast.LENGTH_SHORT).show();
+//            Log.e(Tag, "loadBean : " + invoke);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (InstantiationException e) {

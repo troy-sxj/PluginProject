@@ -8,32 +8,32 @@
 
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnCopyPlugin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="Activity"
+        android:text="copy apk from assets to file"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnLoadDex"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
        android:layout_margin="10dp"
-        android:text="Service"
-        app:layout_constraintEnd_toEndOf="@+id/button"
-        app:layout_constraintStart_toStartOf="@+id/button"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        android:text="load dex"
+        app:layout_constraintEnd_toEndOf="@+id/btnCopyPlugin"
+        app:layout_constraintStart_toStartOf="@+id/btnCopyPlugin"
+        app:layout_constraintTop_toBottomOf="@+id/btnCopyPlugin" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btnLoadClass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="Receiver"
-        app:layout_constraintEnd_toEndOf="@+id/button2"
-        app:layout_constraintStart_toStartOf="@+id/button2"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        android:text="load class"
+        app:layout_constraintEnd_toEndOf="@+id/btnLoadDex"
+        app:layout_constraintStart_toStartOf="@+id/btnLoadDex"
+        app:layout_constraintTop_toBottomOf="@+id/btnLoadDex" />
 </android.support.constraint.ConstraintLayout>

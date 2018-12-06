@@ -10,7 +10,6 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
 
@@ -21,6 +20,10 @@ android {
         }
     }
 
+    lintOptions {
+        abortOnError false
+    }
+
 }
 
 dependencies {
@@ -29,7 +32,18 @@ dependencies {
     api project(path: ':reflect_lib')
 
     implementation 'com.android.support:appcompat-v7:25.3.1'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
+
+task clearJar(type: Delete) {
+    delete 'build/outputs/dynamic.jar'
+}
+
+task makeJar(type: Copy) {
+    from('build/intermediates/compile_library_classes/release/')
+    into('build/outputs/')
+    include('classes.jar')
+    rename('classes.jar','dynamic.jar')
+}
+
+makeJar.dependsOn(clearJar, build)
+
