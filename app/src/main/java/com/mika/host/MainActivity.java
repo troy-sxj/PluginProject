@@ -1,10 +1,6 @@
 package com.mika.host;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.content.res.AssetManager;
-import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -17,11 +13,9 @@ import com.mika.dynamic.business.IDynamic;
 import com.mika.dynamic.utils.FileUtils;
 import com.mika.host.base.BaseActivity;
 
-import java.io.File;
 import java.lang.reflect.Method;
 
 import dalvik.system.BaseDexClassLoader;
-import dalvik.system.DexClassLoader;
 import invoke.RefInvoke;
 
 
@@ -77,7 +71,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 
     private void jumpTestActivity() {
-        getApplicationContext().startActivity(new Intent(this, SecondActivity.class));
     }
 
 
@@ -93,8 +86,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private void testFile() {
         FileUtils.testStorage(getBaseContext());
     }
-
-
 
 
     private void loadBean() {
@@ -119,7 +110,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             String stringForResId = ((IDynamic) dynamic).getStringForResId(this);
             Log.e(Tag, stringForResId);
 //            Toast.makeText(this, stringForResId, Toast.LENGTH_SHORT).show();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
