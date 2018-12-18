@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.mika.dynamic.RefInvoke;
+import invoke.RefInvoke;
 
 /**
  * @Author: mika

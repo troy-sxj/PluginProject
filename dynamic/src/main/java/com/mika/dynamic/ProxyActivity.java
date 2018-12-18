@@ -19,6 +19,7 @@ public class ProxyActivity extends BaseHostActivity {
         mDexPath = getIntent().getStringExtra(DynamicConstant.EXTRA_DEX_PATH);
         mClass = getIntent().getStringExtra(DynamicConstant.EXTRA_DEX_CLASS);
 
+        loadClassLoader();
         loadResources();
         launchTargetActivity();
     }

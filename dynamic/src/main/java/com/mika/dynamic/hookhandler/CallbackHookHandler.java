@@ -7,7 +7,7 @@ import android.util.Log;
 
 import com.mika.dynamic.HookHelper;
 
-import com.mika.dynamic.RefInvoke;
+import invoke.RefInvoke;
 
 /**
  * @Author: mika

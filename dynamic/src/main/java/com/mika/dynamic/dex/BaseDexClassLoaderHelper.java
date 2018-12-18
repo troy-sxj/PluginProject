@@ -6,7 +6,8 @@ import java.lang.reflect.Array;
 
 import dalvik.system.DexClassLoader;
 import dalvik.system.DexFile;
-import com.mika.dynamic.RefInvoke;
+import invoke.RefInvoke;
+
 
 /**
  * @Author: mika

@@ -1,13 +1,18 @@
 package com.mika.dynamic;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+
+import dalvik.system.DexClassLoader;
+import invoke.RefInvoke;
 
 /**
  * @Author: mika
@@ -29,7 +34,10 @@ public abstract class BaseHostActivity extends Activity {
      * 如果dex合并过，不需要再次加载ClassLoader
      */
     protected void loadClassLoader() {
-
+//        File dexOutputDir = this.getDir("dex", Context.MODE_PRIVATE);
+//        final String dexOutputPath = dexOutputDir.getAbsolutePath();
+//        mClassLoader = new DexClassLoader(mDexPath,
+//                dexOutputPath, null, getClassLoader());
     }
 
     protected void loadResources() {
@@ -52,24 +60,24 @@ public abstract class BaseHostActivity extends Activity {
         try {
             Class<?> loadClass = getClassLoader().loadClass(mClass);
             Constructor<?> loadConstructor = loadClass.getConstructor(new Class[]{});
-            Object instance= loadConstructor.newInstance(new Object[] {});
+            Object instance = loadConstructor.newInstance(new Object[]{});
             iRemoteActivity = (IRemoteActivity) instance;
             iRemoteActivity.setProxy(this, mDexPath);
             Bundle bundle = new Bundle();
             //TODO 传递Bundle值
             testLayoutId();
             iRemoteActivity.onCreate(bundle);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void testLayoutId(){
+    private void testLayoutId() {
         try {
             Class<?> layoutClazz = getClassLoader().loadClass("com.mika.plugin1.R$layout");
             int layoutId = (int) RefInvoke.getStaticFieldObject(layoutClazz, "activity_test_plugin");
             Log.d("aaa", layoutId + "");
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
