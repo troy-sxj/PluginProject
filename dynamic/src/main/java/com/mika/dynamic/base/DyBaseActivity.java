@@ -14,9 +14,9 @@ public class DyBaseActivity extends Activity {
 
     @Override
     public Resources getResources() {
-        if(PluginManager.mNowResources == null){
-            return PluginManager.mNowResources;
-        }
+//        if(PluginManager.mNowResources == null){
+//            return PluginManager.mNowResources;
+//        }
         return super.getResources();
     }
 }

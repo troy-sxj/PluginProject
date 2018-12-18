@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
@@ -13,9 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="copy apk from assets to file"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+       />
 
     <Button
         android:id="@+id/btnLoadDex"
@@ -23,9 +22,7 @@
         android:layout_height="wrap_content"
        android:layout_margin="10dp"
         android:text="load dex"
-        app:layout_constraintEnd_toEndOf="@+id/btnCopyPlugin"
-        app:layout_constraintStart_toStartOf="@+id/btnCopyPlugin"
-        app:layout_constraintTop_toBottomOf="@+id/btnCopyPlugin" />
+        />
 
     <Button
         android:id="@+id/btnLoadClass"
@@ -33,9 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="load class"
-        app:layout_constraintEnd_toEndOf="@+id/btnLoadDex"
-        app:layout_constraintStart_toStartOf="@+id/btnLoadDex"
-        app:layout_constraintTop_toBottomOf="@+id/btnLoadDex" />
+       />
 
     <Button
         android:id="@+id/btnLoadRes"
@@ -43,7 +38,5 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="load res "
-        app:layout_constraintEnd_toEndOf="@+id/btnLoadClass"
-        app:layout_constraintStart_toStartOf="@+id/btnLoadClass"
-        app:layout_constraintTop_toBottomOf="@+id/btnLoadClass" />
-</android.support.constraint.ConstraintLayout>
+     />
+</LinearLayout>

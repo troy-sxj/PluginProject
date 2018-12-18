@@ -26,7 +26,16 @@
             <!--</intent-filter>-->
         <!--</activity>-->
 
-        <activity android:name=".TestPluginActivity">
+        <!--<activity android:name=".TestPluginActivity">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.VIEW" />-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
+
+        <activity android:name=".ThatActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
@@ -35,8 +44,14 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.mika.plugin1.TestActivity"/>
-        <service android:name="com.mika.plugin1.TestService"/>
+        <activity android:name="com.mika.dynamic.ProxyActivity">
+            <intent-filter>
+                <action android:name="com.mika.dynamic.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <!--<activity android:name="com.mika.plugin1.TestActivity"/>-->
+        <!--<service android:name="com.mika.plugin1.TestService"/>-->
     </application>
 
 </manifest>

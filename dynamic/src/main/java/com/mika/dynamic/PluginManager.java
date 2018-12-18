@@ -16,8 +16,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import invoke.RefInvoke;
-
 /**
  * @Author: mika
  * @Time: 2018-12-11 14:21
@@ -33,12 +31,12 @@ public class PluginManager {
     private static Object mPackageInfo = null;
     private static volatile Context mBaseContext = null;
     //正在使用的Resources
-    public static volatile Resources mNowResources = null;
+//    public static volatile Resources mNowResources = null;
 
     public static void init(Application application) {
         mPackageInfo = RefInvoke.getFieldObject(application.getBaseContext(), "mPackageInfo");
         mBaseContext = application.getBaseContext();
-        mNowResources = application.getResources();
+//        mNowResources = application.getResources();
         try {
             AssetManager assets = application.getAssets();
             String[] paths = assets.list("");
@@ -56,7 +54,7 @@ public class PluginManager {
                     pluginPaths.add(pluginItem.pluginPath);
                 }
             }
-            reloadInstalledPluginResources(pluginPaths);
+//            reloadInstalledPluginResources(pluginPaths);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -73,7 +71,7 @@ public class PluginManager {
         File file = mBaseContext.getFileStreamPath(apkName);
         PluginItem pluginItem = new PluginItem();
         pluginItem.pluginPath = file.getAbsolutePath();
-        pluginItem.packageInfo = DLUtils.getPackageInfo(mBaseContext,  pluginItem.pluginPath);
+        pluginItem.packageInfo = DLUtils.getPackageInfo(mBaseContext, pluginItem.pluginPath);
         Log.d(Tag, "generatePluginItem = " + pluginItem.toString());
         return pluginItem;
     }
@@ -96,7 +94,7 @@ public class PluginManager {
             //这是最主要的，如果不支持插件运行时更新，只留这一个就可以了
             RefInvoke.setFieldObject(mPackageInfo, "mResources", newResources);
 
-            mNowResources = newResources;
+//            mNowResources = newResources;
             RefInvoke.setFieldObject(mBaseContext, "mTheme", null);
         } catch (Exception e) {
             e.printStackTrace();
