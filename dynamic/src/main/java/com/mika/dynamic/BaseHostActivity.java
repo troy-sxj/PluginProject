@@ -1,17 +1,14 @@
 package com.mika.dynamic;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 
-import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
-import dalvik.system.DexClassLoader;
 import invoke.RefInvoke;
 
 /**
@@ -49,8 +46,9 @@ public abstract class BaseHostActivity extends Activity {
 
             Resources superRes = super.getResources();
             mResources = new Resources(mAssetManager, superRes.getDisplayMetrics(), superRes.getConfiguration());
-            mTheme = mResources.newTheme();
-            mTheme.setTo(super.getTheme());
+            //TODO 添加主题目前有问题
+//            mTheme = mResources.newTheme();
+//            mTheme.setTo(super.getTheme());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -94,6 +92,7 @@ public abstract class BaseHostActivity extends Activity {
 
     @Override
     public Resources.Theme getTheme() {
-        return mTheme == null ? super.getTheme() : mTheme;
+        return super.getTheme();
+//        return mTheme == null ? super.getTheme() : mTheme;
     }
 }
