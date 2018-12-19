@@ -1,8 +1,8 @@
 package com.mika.dynamic;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 
 /**
  * @Author: mika
@@ -13,7 +13,7 @@ public interface IRemoteActivity {
 
     public void onCreate(Bundle savedInstanceState);
 
-    public void setProxy(Activity that, String dexPath);
+    public void setProxy(FragmentActivity that, String dexPath);
 
     public void onStart();
 

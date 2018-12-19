@@ -1,17 +1,14 @@
 package com.mika.host;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
 import com.mika.dynamic.DynamicConstant;
 import com.mika.dynamic.PluginManager;
 import com.mika.dynamic.entity.PluginItem;
-import com.mika.dynamic.utils.DLUtils;
-
-import java.io.File;
 
 
 /**
@@ -19,7 +16,7 @@ import java.io.File;
  * @Time: 2018-12-17 18:37
  * @Description:
  */
-public class ThatActivity extends Activity {
+public class ThatActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,7 +37,7 @@ public class ThatActivity extends Activity {
             PluginItem pluginItem = PluginManager.plugins.get(0);
             String className = pluginItem.packageInfo.packageName + ".TestPluginActivity";
             intent.putExtra(DynamicConstant.EXTRA_DEX_PATH, pluginItem.pluginPath);
-            intent.putExtra(DynamicConstant.EXTRA_DEX_CLASS,  className);
+            intent.putExtra(DynamicConstant.EXTRA_DEX_CLASS, className);
             startActivity(intent);
 
         } catch (Exception e) {

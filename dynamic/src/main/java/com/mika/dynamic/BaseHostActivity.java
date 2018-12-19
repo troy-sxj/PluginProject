@@ -1,9 +1,10 @@
 package com.mika.dynamic;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
 import java.lang.reflect.Constructor;
@@ -16,7 +17,7 @@ import invoke.RefInvoke;
  * @Time: 2018-12-17 17:32
  * @Description:
  */
-public abstract class BaseHostActivity extends Activity {
+public abstract class BaseHostActivity extends FragmentActivity {
 
     private AssetManager mAssetManager;
     private Resources mResources;
@@ -94,5 +95,47 @@ public abstract class BaseHostActivity extends Activity {
     public Resources.Theme getTheme() {
         return super.getTheme();
 //        return mTheme == null ? super.getTheme() : mTheme;
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        iRemoteActivity.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        iRemoteActivity.onStart();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        iRemoteActivity.onRestart();
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        iRemoteActivity.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        iRemoteActivity.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        iRemoteActivity.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        iRemoteActivity.onDestroy();
     }
 }

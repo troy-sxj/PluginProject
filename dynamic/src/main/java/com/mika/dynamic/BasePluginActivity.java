@@ -1,10 +1,11 @@
 package com.mika.dynamic;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.View;
 
@@ -13,26 +14,27 @@ import android.view.View;
  * @Time: 2018-12-17 17:11
  * @Description:
  */
-public class BasePluginActivity extends Activity implements IRemoteActivity {
+public class BasePluginActivity extends FragmentActivity implements IRemoteActivity {
 
     private static final String Tag = BasePluginActivity.class.getSimpleName();
 
-    private Activity that;
+    protected FragmentActivity that;
     private String dexPath;
 
     private int launchMode = LaunchMode.STANDARD;
 
-    public void setLaunchMode(int launchMode){
+    public void setLaunchMode(int launchMode) {
         this.launchMode = launchMode;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Log.d(Tag, "onCreate");
+        hookFragmentCallbacks();
     }
 
     @Override
-    public void setProxy(Activity that, String dexPath) {
+    public void setProxy(FragmentActivity that, String dexPath) {
         this.that = that;
         this.dexPath = dexPath;
     }
@@ -54,7 +56,7 @@ public class BasePluginActivity extends Activity implements IRemoteActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d(Tag, "onActivityResult: requestCode="+requestCode + ", resultCode=" +resultCode + ", intent="+data.toString());
+        Log.d(Tag, "onActivityResult: requestCode=" + requestCode + ", resultCode=" + resultCode + ", intent=" + data.toString());
     }
 
     @Override
@@ -119,9 +121,20 @@ public class BasePluginActivity extends Activity implements IRemoteActivity {
         return that.getIntent();
     }
 
-    private void checkThat(){
-        if(null == that){
+    private void checkThat() {
+        if (null == that) {
             throw new RuntimeException("BasePluginActivity: use plugin must setProxy");
         }
+    }
+
+    private void hookFragmentCallbacks(){
+
+    }
+
+    @Override
+    public FragmentManager getSupportFragmentManager() {
+        checkThat();
+        Log.d(Tag, "------------- getSupportFragmentManager");
+        return that.getSupportFragmentManager();
     }
 }
