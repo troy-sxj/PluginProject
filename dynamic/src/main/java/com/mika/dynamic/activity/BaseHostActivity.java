@@ -1,4 +1,4 @@
-package com.mika.dynamic;
+package com.mika.dynamic.activity;
 
 import android.content.Intent;
 import android.content.res.AssetManager;

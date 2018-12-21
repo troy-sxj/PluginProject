@@ -1,4 +1,4 @@
-package com.mika.dynamic;
+package com.mika.dynamic.activity;
 
 /**
  * @Author: mika

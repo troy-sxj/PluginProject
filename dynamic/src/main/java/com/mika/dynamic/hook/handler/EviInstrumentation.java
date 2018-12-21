@@ -1,4 +1,4 @@
-package com.mika.dynamic.hookhandler;
+package com.mika.dynamic.hook.handler;
 
 import android.app.Activity;
 import android.app.Instrumentation;

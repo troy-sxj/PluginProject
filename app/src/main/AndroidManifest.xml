@@ -44,7 +44,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.mika.dynamic.ProxyActivity"
+        <activity android:name="com.mika.dynamic.activity.ProxyActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="com.mika.dynamic.VIEW" />

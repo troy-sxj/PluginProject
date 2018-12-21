@@ -1,11 +1,11 @@
-package com.mika.dynamic.hookhandler;
+package com.mika.dynamic.hook.handler;
 
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import com.mika.dynamic.HookHelper;
+import com.mika.dynamic.hook.HookHelper;
 
 import invoke.RefInvoke;
 

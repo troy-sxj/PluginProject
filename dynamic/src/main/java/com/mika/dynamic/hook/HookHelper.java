@@ -1,14 +1,14 @@
-package com.mika.dynamic;
+package com.mika.dynamic.hook;
 
 import android.app.Instrumentation;
 import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
 
-import com.mika.dynamic.hookhandler.ActivityManagerHookHandler;
-import com.mika.dynamic.hookhandler.CallbackHookHandler;
-import com.mika.dynamic.hookhandler.EviInstrumentation;
-import com.mika.dynamic.hookhandler.PackageManagerHookHandler;
+import com.mika.dynamic.hook.handler.ActivityManagerHookHandler;
+import com.mika.dynamic.hook.handler.CallbackHookHandler;
+import com.mika.dynamic.hook.handler.EviInstrumentation;
+import com.mika.dynamic.hook.handler.PackageManagerHookHandler;
 
 import java.lang.reflect.Proxy;
 

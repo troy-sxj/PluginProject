@@ -10,7 +10,7 @@ import android.support.v4.app.FragmentHostCallback;
 import android.view.View;
 import android.widget.Toast;
 
-import com.mika.dynamic.BasePluginActivity;
+import com.mika.dynamic.activity.BasePluginActivity;
 
 
 /**
