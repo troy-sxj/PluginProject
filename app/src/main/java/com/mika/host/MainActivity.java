@@ -4,12 +4,10 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.mika.dynamic.business.IDynamic;
 import com.mika.dynamic.utils.FileUtils;
 import com.mika.host.base.BaseActivity;
 
@@ -103,16 +101,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void loadRes() {
-        try {
-//            loadResource();
-            Class<?> aClass = dexClassLoader.loadClass("com.mika.plugin1.DynamicString");
-            Object dynamic = aClass.newInstance();
-            String stringForResId = ((IDynamic) dynamic).getStringForResId(this);
-            Log.e(Tag, stringForResId);
-//            Toast.makeText(this, stringForResId, Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+////            loadResource();
+//            Class<?> aClass = dexClassLoader.loadClass("com.mika.plugin1.DynamicString");
+//            Object dynamic = aClass.newInstance();
+//            String stringForResId = ((IDynamic) dynamic).getStringForResId(this);
+//            Log.e(Tag, stringForResId);
+////            Toast.makeText(this, stringForResId, Toast.LENGTH_SHORT).show();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
 
