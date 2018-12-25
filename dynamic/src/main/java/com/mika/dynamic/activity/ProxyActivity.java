@@ -3,7 +3,7 @@ package com.mika.dynamic.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.mika.dynamic.DynamicConstant;
+import com.mika.dynamic.DyConstant;
 
 /**
  * @Author: mika
@@ -17,8 +17,8 @@ public class ProxyActivity extends BaseHostActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDexPath = getIntent().getStringExtra(DynamicConstant.EXTRA_DEX_PATH);
-        mClass = getIntent().getStringExtra(DynamicConstant.EXTRA_DEX_CLASS);
+        mDexPath = getIntent().getStringExtra(DyConstant.EXTRA_DEX_PATH);
+        mClass = getIntent().getStringExtra(DyConstant.EXTRA_DEX_CLASS);
 
         loadClassLoader();
         loadResources();
