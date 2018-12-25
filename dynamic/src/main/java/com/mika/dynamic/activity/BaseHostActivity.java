@@ -100,42 +100,56 @@ public abstract class BaseHostActivity extends FragmentActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        iRemoteActivity.onActivityResult(requestCode, resultCode, data);
+        if(iRemoteActivity != null) {
+            iRemoteActivity.onActivityResult(requestCode, resultCode, data);
+        }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        iRemoteActivity.onStart();
+        if(iRemoteActivity != null) {
+            iRemoteActivity.onStart();
+        }
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        iRemoteActivity.onRestart();
+        if(iRemoteActivity != null) {
+            iRemoteActivity.onRestart();
+        }
     }
     @Override
     protected void onResume() {
         super.onResume();
-        iRemoteActivity.onResume();
+        if(iRemoteActivity != null) {
+            iRemoteActivity.onResume();
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        iRemoteActivity.onPause();
+        if(iRemoteActivity != null) {
+            iRemoteActivity.onPause();
+        }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        iRemoteActivity.onStop();
+        if(iRemoteActivity != null) {
+            iRemoteActivity.onStop();
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        iRemoteActivity.onDestroy();
+        if(iRemoteActivity != null) {
+            iRemoteActivity.onDestroy();
+        }
     }
 }
