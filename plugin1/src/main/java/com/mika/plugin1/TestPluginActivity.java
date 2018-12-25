@@ -1,12 +1,6 @@
 package com.mika.plugin1;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentHostCallback;
 import android.view.View;
 import android.widget.Toast;
 
@@ -27,6 +21,7 @@ public class TestPluginActivity extends BasePluginActivity implements View.OnCli
         setContentView(R.layout.activity_test_plugin);
         findViewById(R.id.btnCreateObj).setOnClickListener(this);
         findViewById(R.id.btnCreateFragment).setOnClickListener(this);
+        findViewById(R.id.btnTestJni).setOnClickListener(this);
     }
 
     @Override
@@ -41,20 +36,9 @@ public class TestPluginActivity extends BasePluginActivity implements View.OnCli
                 TestFragment testFragment = new TestFragment();
                 getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer, testFragment).commitAllowingStateLoss();
                 break;
+            case R.id.btnTestJni:
+                Toast.makeText(that, new JniUtils().getString(), Toast.LENGTH_LONG).show();
         }
     }
 
-    class PluginHostCallbacks extends FragmentHostCallback<FragmentActivity> {
-
-        public PluginHostCallbacks(@NonNull Context context, @NonNull Handler handler, int windowAnimations) {
-            super(that, handler, windowAnimations);
-        }
-
-        @Nullable
-        @Override
-        public FragmentActivity onGetHost() {
-            return that;
-        }
-
-    }
 }
