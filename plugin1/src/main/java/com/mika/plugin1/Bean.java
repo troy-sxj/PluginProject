@@ -16,4 +16,8 @@ public class Bean {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getNativeName(){
+        return new JniUtils().getString();
+    }
 }

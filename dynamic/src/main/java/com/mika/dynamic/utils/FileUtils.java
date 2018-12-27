@@ -5,7 +5,7 @@ import android.content.res.AssetManager;
 import android.os.Environment;
 import android.util.Log;
 
-import com.mika.dynamic.dex.BaseDexClassLoaderHelper;
+import com.mika.dynamic.loader.BaseDexClassLoaderHelper;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

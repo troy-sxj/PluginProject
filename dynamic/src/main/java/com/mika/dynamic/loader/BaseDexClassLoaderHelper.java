@@ -1,4 +1,4 @@
-package com.mika.dynamic.dex;
+package com.mika.dynamic.loader;
 
 import android.text.TextUtils;
 

@@ -6,7 +6,8 @@ import android.content.res.AssetManager;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.mika.dynamic.dex.BaseDexClassLoaderHelper;
+import com.mika.dynamic.loader.BaseDexClassLoaderHelper;
+import com.mika.dynamic.loader.DyClassLoader;
 import com.mika.dynamic.log.DyLog;
 import com.mika.dynamic.model.PluginInfo;
 import com.mika.dynamic.utils.DLUtils;
@@ -16,6 +17,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import dalvik.system.DexClassLoader;
+import invoke.RefInvoke;
 
 /**
  * @Author: mika
@@ -28,8 +32,10 @@ public class DyPlugin {
     private static boolean isDebug = false;
     private static final Object SYNC_OBJ = new Object();
     private static volatile Context mBaseContext = null;
+    private static Object mPackageInfo = null;
+    private static volatile ClassLoader mBaseClassLoader;
 
-
+    private static volatile DyClassLoader dyClassLoader;
     public static List<PluginInfo> mPluginList = new ArrayList<>();
 
     /**
@@ -41,6 +47,16 @@ public class DyPlugin {
     public static void attachApplication(Application application, boolean debug) {
         mBaseContext = application;
         isDebug = debug;
+        mBaseClassLoader = mBaseContext.getClassLoader();
+        mPackageInfo = RefInvoke.getFieldObject(application.getBaseContext(), "mPackageInfo");
+
+        dyClassLoader = new DyClassLoader(mBaseContext.getPackageCodePath(), mBaseContext.getClassLoader());
+        resetClassLoader();
+    }
+
+    private static void resetClassLoader(){
+        RefInvoke.setFieldObject(mPackageInfo, "mClassLoader", dyClassLoader);
+        Thread.currentThread().setContextClassLoader(dyClassLoader);
     }
 
     /**
@@ -90,14 +106,40 @@ public class DyPlugin {
                 DyLog.i(Tag, "asset file path = " + path);
                 if (path.endsWith(DyConstant.PLUGIN_SUFFIX) && path.equals(pluginName)) {
                     String apkName = path;
-                    String dexName = path.replace(".apk", ".dex");
 
+                    /**
+                     * 思路1： 合并dex，合并so
+                     * <p>
+                     *     存在的问题：
+                     *      dex合并正常，so文件合并无效，问题未知
+                     * </p>
+                     */
+//                    String dexName = path.replace(".apk", ".dex");
+//
+//                    FileUtils.extractAssets(mBaseContext, apkName);
+//                    File extractFile = mBaseContext.getFileStreamPath(apkName);
+//                    String nativeLibPath = FileUtils.unzipSpecificFile(extractFile.getPath(), extractFile.getParent());
+//                    mergeDex(apkName, dexName, nativeLibPath);
+
+                    /**
+                     * 思路2：为每个插件生成单独的classLoader，并加入到主项目的classLoader中
+                     */
+                    //将asset下的插件apk文件复制到app目录下
                     FileUtils.extractAssets(mBaseContext, apkName);
                     File extractFile = mBaseContext.getFileStreamPath(apkName);
-                    String nativeLibPath = FileUtils.unzipSpecificFile(extractFile.getPath(), extractFile.getParent());
-                    mergeDex(apkName, dexName, nativeLibPath);
+                    //获取插件apk的so文件，解压到指定目录
+                    String libPath = FileUtils.unzipSpecificFile(extractFile.getPath(), extractFile.getParent());
+                    //生成plugin的详细信息
                     PluginInfo pluginInfo = generatePluginItem(apkName);
                     mPluginList.add(pluginInfo);
+                    //指定plugin的dex文件写入路径
+                    File dexOutputDir = mBaseContext.getDir("dex", Context.MODE_PRIVATE);
+                    //为plugin生成classLoader
+                    DexClassLoader pluginClassLoader = new DexClassLoader(pluginInfo.pluginPath, dexOutputDir.getAbsolutePath(), libPath, mBaseClassLoader);
+                    //将plugin的classLoader添加到主项目的classLoader
+                    dyClassLoader.addPluginClassLoader(pluginClassLoader);
+                    //重新设置项目的classLoader
+                    resetClassLoader();
                 }
             }
         } catch (IOException e) {
