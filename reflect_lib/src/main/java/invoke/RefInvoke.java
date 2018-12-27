@@ -186,23 +186,23 @@ public class RefInvoke {
 
 
     //简写版本
-    public static Object getFieldObject(Object obj, String filedName) {
-        return getFieldObject(obj.getClass(), obj, filedName);
+    public static Object getFieldObject(Object obj, String fieldName) {
+        return getFieldObject(obj.getClass(), obj, fieldName);
     }
 
-    public static Object getFieldObject(String className, Object obj, String filedName) {
+    public static Object getFieldObject(String className, Object obj, String fieldName) {
         try {
             Class obj_class = Class.forName(className);
-            return getFieldObject(obj_class, obj, filedName);
+            return getFieldObject(obj_class, obj, fieldName);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public static Object getFieldObject(Class clazz, Object obj, String filedName) {
+    public static Object getFieldObject(Class clazz, Object obj, String fieldName) {
         try {
-            Field field = clazz.getDeclaredField(filedName);
+            Field field = clazz.getDeclaredField(fieldName);
             field.setAccessible(true);
             return field.get(obj);
         } catch (Exception e) {
@@ -213,13 +213,13 @@ public class RefInvoke {
     }
 
     //简写版本
-    public static void setFieldObject(Object obj, String filedName, Object filedVaule) {
-        setFieldObject(obj.getClass(), obj, filedName, filedVaule);
+    public static void setFieldObject(Object obj, String fieldName, Object filedVaule) {
+        setFieldObject(obj.getClass(), obj, fieldName, filedVaule);
     }
 
-    public static void setFieldObject(Class clazz, Object obj, String filedName, Object filedVaule) {
+    public static void setFieldObject(Class clazz, Object obj, String fieldName, Object filedVaule) {
         try {
-            Field field = clazz.getDeclaredField(filedName);
+            Field field = clazz.getDeclaredField(fieldName);
             field.setAccessible(true);
             field.set(obj, filedVaule);
         } catch (Exception e) {
@@ -227,29 +227,29 @@ public class RefInvoke {
         }
     }
 
-    public static void setFieldObject(String className, Object obj, String filedName, Object filedVaule) {
+    public static void setFieldObject(String className, Object obj, String fieldName, Object filedVaule) {
         try {
             Class obj_class = Class.forName(className);
-            setFieldObject(obj_class, obj, filedName, filedVaule);
+            setFieldObject(obj_class, obj, fieldName, filedVaule);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
 
-    public static Object getStaticFieldObject(String className, String filedName) {
-        return getFieldObject(className, null, filedName);
+    public static Object getStaticFieldObject(String className, String fieldName) {
+        return getFieldObject(className, null, fieldName);
     }
 
-    public static Object getStaticFieldObject(Class clazz, String filedName) {
-        return getFieldObject(clazz, null, filedName);
+    public static Object getStaticFieldObject(Class clazz, String fieldName) {
+        return getFieldObject(clazz, null, fieldName);
     }
 
-    public static void setStaticFieldObject(String classname, String filedName, Object filedVaule) {
-        setFieldObject(classname, null, filedName, filedVaule);
+    public static void setStaticFieldObject(String classname, String fieldName, Object filedVaule) {
+        setFieldObject(classname, null, fieldName, filedVaule);
     }
 
-    public static void setStaticFieldObject(Class clazz, String filedName, Object filedVaule) {
-        setFieldObject(clazz, null, filedName, filedVaule);
+    public static void setStaticFieldObject(Class clazz, String fieldName, Object filedVaule) {
+        setFieldObject(clazz, null, fieldName, filedVaule);
     }
 }

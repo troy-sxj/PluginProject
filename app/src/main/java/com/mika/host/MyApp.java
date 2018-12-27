@@ -16,9 +16,7 @@ public class MyApp extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-//        loadPlugin(base);
         try {
-//            PluginManager.init(this);
             DyPlugin.attachApplication(this, true);
             DyPlugin.loadPlugin("plugin1-debug.apk");
         } catch (Exception e) {

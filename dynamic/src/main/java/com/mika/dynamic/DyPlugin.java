@@ -93,7 +93,9 @@ public class DyPlugin {
                     String dexName = path.replace(".apk", ".dex");
 
                     FileUtils.extractAssets(mBaseContext, apkName);
-                    mergeDex(apkName, dexName);
+                    File extractFile = mBaseContext.getFileStreamPath(apkName);
+                    String nativeLibPath = FileUtils.unzipSpecificFile(extractFile.getPath(), extractFile.getParent());
+                    mergeDex(apkName, dexName, nativeLibPath);
                     PluginInfo pluginInfo = generatePluginItem(apkName);
                     mPluginList.add(pluginInfo);
                 }
@@ -109,10 +111,10 @@ public class DyPlugin {
      * @param apkName
      * @param dexName
      */
-    private static void mergeDex(String apkName, String dexName) {
+    private static void mergeDex(String apkName, String dexName, String nativeLibPath) {
         File dexFile = mBaseContext.getFileStreamPath(apkName);
         File optDexFile = mBaseContext.getFileStreamPath(dexName);
-        BaseDexClassLoaderHelper.patchClassLoader(mBaseContext.getClassLoader(), dexFile, optDexFile);
+        BaseDexClassLoaderHelper.patchClassLoader(mBaseContext.getClassLoader(), dexFile, optDexFile, nativeLibPath);
     }
 
     /**

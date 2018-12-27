@@ -19,7 +19,6 @@ public class ThatActivity extends FragmentActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_that);
-
         findViewById(R.id.btnLoadPlugin).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
