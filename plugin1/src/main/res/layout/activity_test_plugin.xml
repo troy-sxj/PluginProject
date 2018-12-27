@@ -6,21 +6,33 @@
     <Button
         android:padding="5dp"
         android:id="@+id/btnCreateObj"
-        android:text="Create Object"
+        android:text="创建Obj"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
         android:padding="5dp"
         android:id="@+id/btnCreateFragment"
-        android:text="Create Fragment"
+        android:text="测试Fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
-        android:text="Test JNI"
+        android:text="测试Jni"
         android:id="@+id/btnTestJni"
         android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btnJumpActivity"
+        android:text="插件内Activity跳转"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btnJumpOutActivity"
+        android:text="插件间Activity跳转"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

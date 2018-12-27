@@ -27,6 +27,7 @@ public class MyApp extends Application {
     public void onCreate() {
         super.onCreate();
         DyPlugin.loadPlugin("plugin1-debug.apk");
+        DyPlugin.loadPlugin("plugin2-debug.apk");
     }
 
     /**

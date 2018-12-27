@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.mika.dynamic.activity.BasePluginActivity;
+import com.mika.dynamic.activity.DyIntent;
 
 
 /**
@@ -22,6 +23,8 @@ public class TestPluginActivity extends BasePluginActivity implements View.OnCli
         findViewById(R.id.btnCreateObj).setOnClickListener(this);
         findViewById(R.id.btnCreateFragment).setOnClickListener(this);
         findViewById(R.id.btnTestJni).setOnClickListener(this);
+        findViewById(R.id.btnJumpActivity).setOnClickListener(this);
+        findViewById(R.id.btnJumpOutActivity).setOnClickListener(this);
     }
 
     @Override
@@ -38,6 +41,15 @@ public class TestPluginActivity extends BasePluginActivity implements View.OnCli
                 break;
             case R.id.btnTestJni:
                 Toast.makeText(that, new JniUtils().getString(), Toast.LENGTH_LONG).show();
+                break;
+            case R.id.btnJumpActivity:
+                DyIntent dyIntent = new DyIntent("com.mika.plugin1.SecondActivity");
+                startActivity(dyIntent);
+                break;
+            case R.id.btnJumpOutActivity:
+                DyIntent dyIntent2 = new DyIntent("com.mika.plugin2.MainActivity");
+                startActivity(dyIntent2);
+                break;
         }
     }
 

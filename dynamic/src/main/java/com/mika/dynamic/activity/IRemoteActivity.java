@@ -12,26 +12,26 @@ import android.support.v4.app.FragmentActivity;
  */
 public interface IRemoteActivity {
 
-    public void onCreate(Bundle savedInstanceState);
+    void onCreate(Bundle savedInstanceState);
 
-    public void setProxy(FragmentActivity that, String dexPath);
+    void setProxy(FragmentActivity that, String dexPath);
 
-    public void onStart();
+    void onStart();
 
-    public void onStop();
+    void onStop();
 
-    public void onRestart();
+    void onRestart();
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data);
+    void onActivityResult(int requestCode, int resultCode, Intent data);
 
-    public void onConfigurationChanged(Configuration newConfig);
+    void onConfigurationChanged(Configuration newConfig);
 
-    public void onResume();
+    void onResume();
 
-    public void onPause();
+    void onPause();
 
-    public void onDestroy();
+    void onDestroy();
 
-    public int getLaunchMode();
+    int getLaunchMode();
 
 }
