@@ -2,6 +2,7 @@ package com.mika.dynamic.activity;
 
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -57,6 +58,10 @@ public class BasePluginActivity extends FragmentActivity implements IRemoteActiv
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d(Tag, "onActivityResult: requestCode=" + requestCode + ", resultCode=" + resultCode + ", intent=" + data.toString());
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
     }
 
     @Override

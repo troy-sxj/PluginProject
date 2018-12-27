@@ -1,6 +1,7 @@
 package com.mika.dynamic.activity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
@@ -22,6 +23,8 @@ public interface IRemoteActivity {
     public void onRestart();
 
     public void onActivityResult(int requestCode, int resultCode, Intent data);
+
+    public void onConfigurationChanged(Configuration newConfig);
 
     public void onResume();
 

@@ -1,6 +1,5 @@
 package com.mika.dynamic;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.text.TextUtils;
@@ -28,33 +27,41 @@ import invoke.RefInvoke;
  */
 public class DyPlugin {
     private static final String Tag = DyPlugin.class.getSimpleName();
+    private static DyPlugin mInstance;
     private static final int LOAD_MAX_NUM = 3;  //最大支持的插件数量
-    private static boolean isDebug = false;
     private static final Object SYNC_OBJ = new Object();
     private static volatile Context mBaseContext = null;
     private static Object mPackageInfo = null;
-    private static volatile ClassLoader mBaseClassLoader;
+    private static volatile ClassLoader mBaseClassLoader;    //初始classLoader
 
-    private static volatile DyClassLoader dyClassLoader;
-    public static List<PluginInfo> mPluginList = new ArrayList<>();
+    private static volatile DyClassLoader dyClassLoader;    //插件化classLoader
+    private static List<PluginInfo> mPluginList = new ArrayList<>();
+
+    private DyPlugin(Context baseContext) {
+        mBaseContext = baseContext;
+    }
+
+    public static DyPlugin getInstance(Context baseContext) {
+        if (mInstance == null) {
+            mInstance = new DyPlugin(baseContext);
+        }
+        return mInstance;
+    }
 
     /**
      * 初始化
-     *
-     * @param application
-     * @param debug
      */
-    public static void attachApplication(Application application, boolean debug) {
-        mBaseContext = application;
-        isDebug = debug;
+    public void init() {
         mBaseClassLoader = mBaseContext.getClassLoader();
-        mPackageInfo = RefInvoke.getFieldObject(application.getBaseContext(), "mPackageInfo");
-
+        mPackageInfo = RefInvoke.getFieldObject(mBaseContext, "mPackageInfo");
         dyClassLoader = new DyClassLoader(mBaseContext.getPackageCodePath(), mBaseContext.getClassLoader());
         resetClassLoader();
     }
 
-    private static void resetClassLoader(){
+    /**
+     * 加载新的插件后，需要重新设置classLoader
+     */
+    private static void resetClassLoader() {
         RefInvoke.setFieldObject(mPackageInfo, "mClassLoader", dyClassLoader);
         Thread.currentThread().setContextClassLoader(dyClassLoader);
     }

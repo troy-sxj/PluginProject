@@ -17,11 +17,16 @@ public class MyApp extends Application {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         try {
-            DyPlugin.attachApplication(this, true);
-            DyPlugin.loadPlugin("plugin1-debug.apk");
+            DyPlugin.getInstance(base).init();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        DyPlugin.loadPlugin("plugin1-debug.apk");
     }
 
     /**

@@ -2,6 +2,7 @@ package com.mika.dynamic.activity;
 
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -64,18 +65,7 @@ public abstract class BaseHostActivity extends FragmentActivity {
             iRemoteActivity.setProxy(this, mDexPath);
             Bundle bundle = new Bundle();
             //TODO 传递Bundle值
-            testLayoutId();
             iRemoteActivity.onCreate(bundle);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void testLayoutId() {
-        try {
-            Class<?> layoutClazz = getClassLoader().loadClass("com.mika.plugin1.R$layout");
-            int layoutId = (int) RefInvoke.getStaticFieldObject(layoutClazz, "activity_test_plugin");
-            Log.d("aaa", layoutId + "");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -104,6 +94,14 @@ public abstract class BaseHostActivity extends FragmentActivity {
             iRemoteActivity.onActivityResult(requestCode, resultCode, data);
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        if(iRemoteActivity != null){
+            iRemoteActivity.onConfigurationChanged(newConfig);
+        }
+        super.onConfigurationChanged(newConfig);
     }
 
     @Override
