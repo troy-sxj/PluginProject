@@ -13,6 +13,7 @@ import com.mika.dynamic.model.PluginInfo;
  */
 public class DyIntent extends Intent {
 
+
     private String pluginActivityClassName;
 
 

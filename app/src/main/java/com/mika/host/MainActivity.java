@@ -39,10 +39,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         loadPluginDex(pluginName);
 
-        btn1 = (Button) findViewById(R.id.btnCopyPlugin);
-        btn2 = (Button) findViewById(R.id.btnLoadDex);
-        btn3 = (Button) findViewById(R.id.btnLoadClass);
-        btn4 = (Button) findViewById(R.id.btnLoadRes);
+        btn1 = findViewById(R.id.btnCopyPlugin);
+        btn2 = findViewById(R.id.btnLoadDex);
+        btn3 = findViewById(R.id.btnLoadClass);
+        btn4 = findViewById(R.id.btnLoadRes);
 
         btn1.setOnClickListener(this);
         btn2.setOnClickListener(this);
